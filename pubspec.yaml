@@ -36,7 +36,10 @@ dependencies:
   hydrated_bloc: ^8.1.0
 
 dev_dependencies:
+  auto_route_generator: ^3.2.3
   bloc_test: ^9.0.3
+  build_runner: ^2.1.8
+  # flutter pub run build_runner build --delete-conflicting-outputs
   flutter_test:
     sdk: flutter
   lint: ^1.8.2
