@@ -19,11 +19,17 @@ class _$AppRouter extends RootStackRouter {
   final Map<String, PageFactory> pagesMap = {
     HomeRoute.name: (routeData) {
       return MaterialPageX<dynamic>(routeData: routeData, child: HomePage());
+    },
+    GameRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(routeData: routeData, child: GamePage());
     }
   };
 
   @override
-  List<RouteConfig> get routes => [RouteConfig(HomeRoute.name, path: '/')];
+  List<RouteConfig> get routes => [
+        RouteConfig(HomeRoute.name, path: '/'),
+        RouteConfig(GameRoute.name, path: '/game-page')
+      ];
 }
 
 /// generated route for
@@ -32,4 +38,12 @@ class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute() : super(HomeRoute.name, path: '/');
 
   static const String name = 'HomeRoute';
+}
+
+/// generated route for
+/// [GamePage]
+class GameRoute extends PageRouteInfo<void> {
+  const GameRoute() : super(GameRoute.name, path: '/game-page');
+
+  static const String name = 'GameRoute';
 }
