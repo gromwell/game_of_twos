@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:game_of_twos/constants.dart';
 
 class MyScaffold extends StatelessWidget {
   const MyScaffold({required this.body, this.bottomSheet});
@@ -10,7 +11,7 @@ class MyScaffold extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Game of twos'),
+        title: const Text(Constants.appTitle),
       ),
       body: body,
       bottomSheet: bottomSheet,

@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:game_of_twos/constants.dart';
 import 'package:game_of_twos/my_theme_data.dart';
 import 'package:game_of_twos/presentation/routes/app_router.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() {
-  runApp(MyApp());
+Future<void> main() async {
+  final storage = await HydratedStorage.build(
+    storageDirectory: await getApplicationDocumentsDirectory(),
+  );
+  HydratedBlocOverrides.runZoned(
+    () => runApp(MyApp()),
+    storage: storage,
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -12,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Tasks',
+      title: Constants.appTitle,
       routerDelegate: _appRouter.delegate(),
       routeInformationParser: _appRouter.defaultRouteParser(),
       theme: MyThemeData.light,
