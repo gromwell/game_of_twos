@@ -7,10 +7,17 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyScaffold(
-      body: IconButton(
-        onPressed: () => context.router.push(const GameRoute()),
-        icon: const Icon(Icons.play_arrow),
-      ),
+      body: StartGameButton(),
+    );
+  }
+}
+
+class StartGameButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () => context.router.push(const GameRoute()),
+      icon: const Icon(Icons.play_arrow),
     );
   }
 }

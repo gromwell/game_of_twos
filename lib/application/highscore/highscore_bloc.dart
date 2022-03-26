@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:game_of_twos/constants.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part 'highscore_event.dart';
@@ -8,8 +9,16 @@ part 'highscore_bloc.g.dart';
 
 class HighscoreBloc extends HydratedBloc<HighscoreEvent, HighscoreState> {
   HighscoreBloc() : super(HighscoreState.initial()) {
-    on<HighscoreEvent>((event, emit) {
-      // TODO: implement event handler
+    on<UpdateHighscoreEvent>((event, emit) {
+      if (event.highscore > state.highScore) {
+        emit(state.copyWith(highScore: event.highscore));
+      }
+    });
+    on<ResetHighscoreEvent>((event, emit) {
+      final initialState = HighscoreState.initial();
+      if (state.highScore != initialState.highScore) {
+        emit(initialState);
+      }
     });
   }
 

@@ -7,4 +7,6 @@ abstract class Constants {
   static const double margins = 8.0;
   static const double marginsLarge = 16.0;
   static const double marginsHuge = 32.0;
+
+  static const int highScoreInitial = 0;
 }
