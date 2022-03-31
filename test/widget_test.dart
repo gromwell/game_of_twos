@@ -44,12 +44,12 @@ Future<void> main() async {
       'changing highscores',
       build: () => build(),
       act: (bloc) => bloc
-        ..add(ResetHighscoreEvent())
-        ..add(UpdateHighscoreEvent(highscore: 100))
-        ..add(UpdateHighscoreEvent(highscore: 100))
-        ..add(UpdateHighscoreEvent(highscore: 50))
-        ..add(ResetHighscoreEvent())
-        ..add(UpdateHighscoreEvent(highscore: 200)),
+        ..add(const HighscoreEvent.reset())
+        ..add(const HighscoreEvent.update(highscore: 100))
+        ..add(const HighscoreEvent.update(highscore: 100))
+        ..add(const HighscoreEvent.update(highscore: 50))
+        ..add(const HighscoreEvent.reset())
+        ..add(const HighscoreEvent.update(highscore: 200)),
       expect: () => const [
         HighscoreState(highScore: 100),
         HighscoreState(highScore: 0),

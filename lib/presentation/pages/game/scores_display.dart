@@ -5,9 +5,12 @@ import 'package:game_of_twos/application/highscore/highscore_bloc.dart';
 class ScoresDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: const [Text('Score: ${0}'), HighscoreDisplay()],
+    return SizedBox(
+      height: kToolbarHeight,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: const [Text('Score: ${0}'), HighscoreDisplay()],
+      ),
     );
   }
 }

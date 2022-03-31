@@ -9,12 +9,12 @@ part 'highscore_bloc.g.dart';
 
 class HighscoreBloc extends HydratedBloc<HighscoreEvent, HighscoreState> {
   HighscoreBloc() : super(HighscoreState.initial()) {
-    on<UpdateHighscoreEvent>((event, emit) {
+    on<_UpdateHighscoreEvent>((event, emit) {
       if (event.highscore > state.highScore) {
         emit(state.copyWith(highScore: event.highscore));
       }
     });
-    on<ResetHighscoreEvent>((event, emit) {
+    on<_ResetHighscoreEvent>((event, emit) {
       final initialState = HighscoreState.initial();
       if (state.highScore != initialState.highScore) {
         emit(initialState);

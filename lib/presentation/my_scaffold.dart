@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:game_of_twos/constants.dart';
 
 class MyScaffold extends StatelessWidget {
-  const MyScaffold({required this.body, this.bottomSheet});
+  const MyScaffold({required this.body, this.bottomNavigationBar});
   final Widget body;
-  final Widget? bottomSheet;
+  final Widget? bottomNavigationBar;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class MyScaffold extends StatelessWidget {
         title: const Text(Constants.appTitle),
       ),
       body: body,
-      bottomSheet: bottomSheet,
+      bottomNavigationBar: bottomNavigationBar,
     );
   }
 }

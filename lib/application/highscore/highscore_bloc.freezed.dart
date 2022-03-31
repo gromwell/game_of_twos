@@ -13,6 +13,324 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+/// @nodoc
+class _$HighscoreEventTearOff {
+  const _$HighscoreEventTearOff();
+
+  _UpdateHighscoreEvent update({required int highscore}) {
+    return _UpdateHighscoreEvent(
+      highscore: highscore,
+    );
+  }
+
+  _ResetHighscoreEvent reset() {
+    return const _ResetHighscoreEvent();
+  }
+}
+
+/// @nodoc
+const $HighscoreEvent = _$HighscoreEventTearOff();
+
+/// @nodoc
+mixin _$HighscoreEvent {
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int highscore) update,
+    required TResult Function() reset,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(int highscore)? update,
+    TResult Function()? reset,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int highscore)? update,
+    TResult Function()? reset,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UpdateHighscoreEvent value) update,
+    required TResult Function(_ResetHighscoreEvent value) reset,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_UpdateHighscoreEvent value)? update,
+    TResult Function(_ResetHighscoreEvent value)? reset,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UpdateHighscoreEvent value)? update,
+    TResult Function(_ResetHighscoreEvent value)? reset,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $HighscoreEventCopyWith<$Res> {
+  factory $HighscoreEventCopyWith(
+          HighscoreEvent value, $Res Function(HighscoreEvent) then) =
+      _$HighscoreEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$HighscoreEventCopyWithImpl<$Res>
+    implements $HighscoreEventCopyWith<$Res> {
+  _$HighscoreEventCopyWithImpl(this._value, this._then);
+
+  final HighscoreEvent _value;
+  // ignore: unused_field
+  final $Res Function(HighscoreEvent) _then;
+}
+
+/// @nodoc
+abstract class _$UpdateHighscoreEventCopyWith<$Res> {
+  factory _$UpdateHighscoreEventCopyWith(_UpdateHighscoreEvent value,
+          $Res Function(_UpdateHighscoreEvent) then) =
+      __$UpdateHighscoreEventCopyWithImpl<$Res>;
+  $Res call({int highscore});
+}
+
+/// @nodoc
+class __$UpdateHighscoreEventCopyWithImpl<$Res>
+    extends _$HighscoreEventCopyWithImpl<$Res>
+    implements _$UpdateHighscoreEventCopyWith<$Res> {
+  __$UpdateHighscoreEventCopyWithImpl(
+      _UpdateHighscoreEvent _value, $Res Function(_UpdateHighscoreEvent) _then)
+      : super(_value, (v) => _then(v as _UpdateHighscoreEvent));
+
+  @override
+  _UpdateHighscoreEvent get _value => super._value as _UpdateHighscoreEvent;
+
+  @override
+  $Res call({
+    Object? highscore = freezed,
+  }) {
+    return _then(_UpdateHighscoreEvent(
+      highscore: highscore == freezed
+          ? _value.highscore
+          : highscore // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_UpdateHighscoreEvent implements _UpdateHighscoreEvent {
+  const _$_UpdateHighscoreEvent({required this.highscore});
+
+  @override
+  final int highscore;
+
+  @override
+  String toString() {
+    return 'HighscoreEvent.update(highscore: $highscore)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _UpdateHighscoreEvent &&
+            const DeepCollectionEquality().equals(other.highscore, highscore));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(highscore));
+
+  @JsonKey(ignore: true)
+  @override
+  _$UpdateHighscoreEventCopyWith<_UpdateHighscoreEvent> get copyWith =>
+      __$UpdateHighscoreEventCopyWithImpl<_UpdateHighscoreEvent>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int highscore) update,
+    required TResult Function() reset,
+  }) {
+    return update(highscore);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(int highscore)? update,
+    TResult Function()? reset,
+  }) {
+    return update?.call(highscore);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int highscore)? update,
+    TResult Function()? reset,
+    required TResult orElse(),
+  }) {
+    if (update != null) {
+      return update(highscore);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UpdateHighscoreEvent value) update,
+    required TResult Function(_ResetHighscoreEvent value) reset,
+  }) {
+    return update(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_UpdateHighscoreEvent value)? update,
+    TResult Function(_ResetHighscoreEvent value)? reset,
+  }) {
+    return update?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UpdateHighscoreEvent value)? update,
+    TResult Function(_ResetHighscoreEvent value)? reset,
+    required TResult orElse(),
+  }) {
+    if (update != null) {
+      return update(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateHighscoreEvent implements HighscoreEvent {
+  const factory _UpdateHighscoreEvent({required int highscore}) =
+      _$_UpdateHighscoreEvent;
+
+  int get highscore;
+  @JsonKey(ignore: true)
+  _$UpdateHighscoreEventCopyWith<_UpdateHighscoreEvent> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$ResetHighscoreEventCopyWith<$Res> {
+  factory _$ResetHighscoreEventCopyWith(_ResetHighscoreEvent value,
+          $Res Function(_ResetHighscoreEvent) then) =
+      __$ResetHighscoreEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$ResetHighscoreEventCopyWithImpl<$Res>
+    extends _$HighscoreEventCopyWithImpl<$Res>
+    implements _$ResetHighscoreEventCopyWith<$Res> {
+  __$ResetHighscoreEventCopyWithImpl(
+      _ResetHighscoreEvent _value, $Res Function(_ResetHighscoreEvent) _then)
+      : super(_value, (v) => _then(v as _ResetHighscoreEvent));
+
+  @override
+  _ResetHighscoreEvent get _value => super._value as _ResetHighscoreEvent;
+}
+
+/// @nodoc
+
+class _$_ResetHighscoreEvent implements _ResetHighscoreEvent {
+  const _$_ResetHighscoreEvent();
+
+  @override
+  String toString() {
+    return 'HighscoreEvent.reset()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _ResetHighscoreEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int highscore) update,
+    required TResult Function() reset,
+  }) {
+    return reset();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(int highscore)? update,
+    TResult Function()? reset,
+  }) {
+    return reset?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int highscore)? update,
+    TResult Function()? reset,
+    required TResult orElse(),
+  }) {
+    if (reset != null) {
+      return reset();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_UpdateHighscoreEvent value) update,
+    required TResult Function(_ResetHighscoreEvent value) reset,
+  }) {
+    return reset(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_UpdateHighscoreEvent value)? update,
+    TResult Function(_ResetHighscoreEvent value)? reset,
+  }) {
+    return reset?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_UpdateHighscoreEvent value)? update,
+    TResult Function(_ResetHighscoreEvent value)? reset,
+    required TResult orElse(),
+  }) {
+    if (reset != null) {
+      return reset(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ResetHighscoreEvent implements HighscoreEvent {
+  const factory _ResetHighscoreEvent() = _$_ResetHighscoreEvent;
+}
+
 HighscoreState _$HighscoreStateFromJson(Map<String, dynamic> json) {
   return _HighscoreState.fromJson(json);
 }

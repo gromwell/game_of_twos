@@ -21,7 +21,9 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(routeData: routeData, child: HomePage());
     },
     GameRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(routeData: routeData, child: GamePage());
+      final args = routeData.argsAs<GameRouteArgs>();
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: GamePage(args.axis));
     }
   };
 
@@ -42,8 +44,21 @@ class HomeRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [GamePage]
-class GameRoute extends PageRouteInfo<void> {
-  const GameRoute() : super(GameRoute.name, path: '/game-page');
+class GameRoute extends PageRouteInfo<GameRouteArgs> {
+  GameRoute({required int axis})
+      : super(GameRoute.name,
+            path: '/game-page', args: GameRouteArgs(axis: axis));
 
   static const String name = 'GameRoute';
+}
+
+class GameRouteArgs {
+  const GameRouteArgs({required this.axis});
+
+  final int axis;
+
+  @override
+  String toString() {
+    return 'GameRouteArgs{axis: $axis}';
+  }
 }

@@ -1,10 +1,8 @@
 part of 'highscore_bloc.dart';
 
-abstract class HighscoreEvent {}
-
-class UpdateHighscoreEvent extends HighscoreEvent {
-  UpdateHighscoreEvent({required this.highscore});
-  int highscore;
+@freezed
+class HighscoreEvent with _$HighscoreEvent {
+  const factory HighscoreEvent.update({required int highscore}) =
+      _UpdateHighscoreEvent;
+  const factory HighscoreEvent.reset() = _ResetHighscoreEvent;
 }
-
-class ResetHighscoreEvent extends HighscoreEvent {}

@@ -7,7 +7,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyScaffold(
-      body: StartGameButton(),
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [StartGameButton()],
+      ),
     );
   }
 }
@@ -16,8 +19,11 @@ class StartGameButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      onPressed: () => context.router.push(const GameRoute()),
-      icon: const Icon(Icons.play_arrow),
+      iconSize: 100.0,
+      onPressed: () => context.router.push(GameRoute(axis: 3)),
+      icon: const Icon(
+        Icons.play_arrow,
+      ),
     );
   }
 }

@@ -28,16 +28,15 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   auto_route: ^3.2.4
+  auto_size_text: ^3.0.0
   bloc: ^8.0.3
   bloc_concurrency: ^0.2.0
-  cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
-  freezed: ^1.1.0
   freezed_annotation: ^1.1.0
   hydrated_bloc: ^8.1.0
-  json_serializable: ^6.1.5
+  json_annotation: ^4.4.0
   path_provider: ^2.0.9
 
 dev_dependencies:
@@ -47,6 +46,8 @@ dev_dependencies:
   # flutter pub run build_runner build --delete-conflicting-outputs
   flutter_test:
     sdk: flutter
+  freezed: ^1.1.0
+  json_serializable: ^6.1.5
   lint: ^1.8.2
   mocktail: ^0.3.0
 
