@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'highscore_bloc.dart';
+part of 'high_score_cubit.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

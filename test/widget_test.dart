@@ -7,7 +7,7 @@
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:game_of_twos/application/highscore/highscore_bloc.dart';
+import 'package:game_of_twos/application/highscore/high_score_cubit.dart';
 import 'package:game_of_twos/constants.dart';
 
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -25,38 +25,38 @@ Future<void> main() async {
           .thenAnswer((_) async {});
     });
 
-    HighscoreBloc build() => HydratedBlocOverrides.runZoned(
-          () => HighscoreBloc(),
+    HighScoreCubit build() => HydratedBlocOverrides.runZoned(
+          () => HighScoreCubit(),
           storage: hydratedStorage,
         );
 
-    blocTest<HighscoreBloc, HighscoreState>(
+    blocTest<HighScoreCubit, HighScoreState>(
       'emits [] when nothing is added',
       build: () => build(),
       expect: () => [],
     );
-    blocTest<HighscoreBloc, HighscoreState>(
+    blocTest<HighScoreCubit, HighScoreState>(
       'initial state is 0',
       build: () => build(),
       verify: (bloc) => bloc.state.highScore == Constants.highScoreInitial,
     );
-    blocTest<HighscoreBloc, HighscoreState>(
+    blocTest<HighScoreCubit, HighScoreState>(
       'changing highscores',
       build: () => build(),
-      act: (bloc) => bloc
-        ..add(const HighscoreEvent.reset())
-        ..add(const HighscoreEvent.update(highscore: 100))
-        ..add(const HighscoreEvent.update(highscore: 100))
-        ..add(const HighscoreEvent.update(highscore: 50))
-        ..add(const HighscoreEvent.reset())
-        ..add(const HighscoreEvent.update(highscore: 200)),
+      act: (cubit) => cubit
+        ..reset()
+        ..update(highScore: 100)
+        ..update(highScore: 100)
+        ..update(highScore: 50)
+        ..reset()
+        ..update(highScore: 200),
       expect: () => const [
-        HighscoreState(highScore: 100),
-        HighscoreState(highScore: 0),
-        HighscoreState(highScore: 200)
+        HighScoreState(highScore: 100),
+        HighScoreState(highScore: 0),
+        HighScoreState(highScore: 200)
       ],
     );
-    blocTest<HighscoreBloc, HighscoreState>(
+    blocTest<HighScoreCubit, HighScoreState>(
       'state is hydrated',
       build: () => build(),
       verify: (bloc) => bloc.state.highScore == 200,
