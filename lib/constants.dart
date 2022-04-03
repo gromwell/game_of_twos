@@ -1,5 +1,6 @@
 abstract class Constants {
   static const String appTitle = 'Game of twos';
+  static const String emptyString = '';
 
   static const double marginsNone = 0.0;
   static const double marginsTiny = 2.0;
@@ -10,6 +11,6 @@ abstract class Constants {
 
   static const int highScoreInitial = 0;
 
-  static const int gameSquareInitial = 0;
-  static const int gameSquareTwo = 2;
+  static const int gamefieldInitial = 0;
+  static const int gamefieldTwo = 2;
 }

@@ -608,11 +608,11 @@ class _$GameStateTearOff {
   const _$GameStateTearOff();
 
   _GameState call(
-      {required List<int> gameSquares,
+      {required GameMatrix gameMatrix,
       required GameStatus gameStatus,
       required int score}) {
     return _GameState(
-      gameSquares: gameSquares,
+      gameMatrix: gameMatrix,
       gameStatus: gameStatus,
       score: score,
     );
@@ -624,7 +624,7 @@ const $GameState = _$GameStateTearOff();
 
 /// @nodoc
 mixin _$GameState {
-  List<int> get gameSquares => throw _privateConstructorUsedError;
+  GameMatrix get gameMatrix => throw _privateConstructorUsedError;
   GameStatus get gameStatus => throw _privateConstructorUsedError;
   int get score => throw _privateConstructorUsedError;
 
@@ -637,7 +637,7 @@ mixin _$GameState {
 abstract class $GameStateCopyWith<$Res> {
   factory $GameStateCopyWith(GameState value, $Res Function(GameState) then) =
       _$GameStateCopyWithImpl<$Res>;
-  $Res call({List<int> gameSquares, GameStatus gameStatus, int score});
+  $Res call({GameMatrix gameMatrix, GameStatus gameStatus, int score});
 }
 
 /// @nodoc
@@ -650,15 +650,15 @@ class _$GameStateCopyWithImpl<$Res> implements $GameStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? gameSquares = freezed,
+    Object? gameMatrix = freezed,
     Object? gameStatus = freezed,
     Object? score = freezed,
   }) {
     return _then(_value.copyWith(
-      gameSquares: gameSquares == freezed
-          ? _value.gameSquares
-          : gameSquares // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+      gameMatrix: gameMatrix == freezed
+          ? _value.gameMatrix
+          : gameMatrix // ignore: cast_nullable_to_non_nullable
+              as GameMatrix,
       gameStatus: gameStatus == freezed
           ? _value.gameStatus
           : gameStatus // ignore: cast_nullable_to_non_nullable
@@ -677,7 +677,7 @@ abstract class _$GameStateCopyWith<$Res> implements $GameStateCopyWith<$Res> {
           _GameState value, $Res Function(_GameState) then) =
       __$GameStateCopyWithImpl<$Res>;
   @override
-  $Res call({List<int> gameSquares, GameStatus gameStatus, int score});
+  $Res call({GameMatrix gameMatrix, GameStatus gameStatus, int score});
 }
 
 /// @nodoc
@@ -691,15 +691,15 @@ class __$GameStateCopyWithImpl<$Res> extends _$GameStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? gameSquares = freezed,
+    Object? gameMatrix = freezed,
     Object? gameStatus = freezed,
     Object? score = freezed,
   }) {
     return _then(_GameState(
-      gameSquares: gameSquares == freezed
-          ? _value.gameSquares
-          : gameSquares // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+      gameMatrix: gameMatrix == freezed
+          ? _value.gameMatrix
+          : gameMatrix // ignore: cast_nullable_to_non_nullable
+              as GameMatrix,
       gameStatus: gameStatus == freezed
           ? _value.gameStatus
           : gameStatus // ignore: cast_nullable_to_non_nullable
@@ -716,12 +716,12 @@ class __$GameStateCopyWithImpl<$Res> extends _$GameStateCopyWithImpl<$Res>
 
 class _$_GameState implements _GameState {
   const _$_GameState(
-      {required this.gameSquares,
+      {required this.gameMatrix,
       required this.gameStatus,
       required this.score});
 
   @override
-  final List<int> gameSquares;
+  final GameMatrix gameMatrix;
   @override
   final GameStatus gameStatus;
   @override
@@ -729,7 +729,7 @@ class _$_GameState implements _GameState {
 
   @override
   String toString() {
-    return 'GameState(gameSquares: $gameSquares, gameStatus: $gameStatus, score: $score)';
+    return 'GameState(gameMatrix: $gameMatrix, gameStatus: $gameStatus, score: $score)';
   }
 
   @override
@@ -738,7 +738,7 @@ class _$_GameState implements _GameState {
         (other.runtimeType == runtimeType &&
             other is _GameState &&
             const DeepCollectionEquality()
-                .equals(other.gameSquares, gameSquares) &&
+                .equals(other.gameMatrix, gameMatrix) &&
             const DeepCollectionEquality()
                 .equals(other.gameStatus, gameStatus) &&
             const DeepCollectionEquality().equals(other.score, score));
@@ -747,7 +747,7 @@ class _$_GameState implements _GameState {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(gameSquares),
+      const DeepCollectionEquality().hash(gameMatrix),
       const DeepCollectionEquality().hash(gameStatus),
       const DeepCollectionEquality().hash(score));
 
@@ -759,12 +759,12 @@ class _$_GameState implements _GameState {
 
 abstract class _GameState implements GameState {
   const factory _GameState(
-      {required List<int> gameSquares,
+      {required GameMatrix gameMatrix,
       required GameStatus gameStatus,
       required int score}) = _$_GameState;
 
   @override
-  List<int> get gameSquares;
+  GameMatrix get gameMatrix;
   @override
   GameStatus get gameStatus;
   @override

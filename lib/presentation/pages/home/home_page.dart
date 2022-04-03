@@ -20,7 +20,7 @@ class StartGameButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       iconSize: 100.0,
-      onPressed: () => context.router.push(GameRoute(axis: 3)),
+      onPressed: () => context.router.push(GameRoute(size: 3)),
       icon: const Icon(
         Icons.play_arrow,
       ),
