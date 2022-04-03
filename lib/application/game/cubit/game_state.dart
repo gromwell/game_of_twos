@@ -1,4 +1,4 @@
-part of 'game_bloc.dart';
+part of 'game_cubit.dart';
 
 enum GameStatus {
   playing,

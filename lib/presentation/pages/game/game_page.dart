@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:game_of_twos/application/game/game_bloc.dart';
+import 'package:game_of_twos/application/game/cubit/game_cubit.dart';
 import 'package:game_of_twos/constants.dart';
 import 'package:game_of_twos/presentation/my_scaffold.dart';
 import 'package:game_of_twos/presentation/pages/game/scores_display.dart';
@@ -18,7 +18,7 @@ class GamePage extends StatelessWidget {
     final double fieldPadding = fieldSize / 4;
 
     return BlocProvider(
-      create: (context) => GameBloc(size),
+      create: (context) => GameCubit(size),
       child: Game(
         gameBoardSize: gameBoardSize,
         size: size,
@@ -59,11 +59,9 @@ class Game extends StatelessWidget {
         final primaryVelocity = dragEndDetails.primaryVelocity;
         if (primaryVelocity != null) {
           if (primaryVelocity.isNegative) {
-            context.read<GameBloc>().add(const GameEvent.drag(Direction.top));
+            context.read<GameCubit>().drag(Direction.top);
           } else {
-            context
-                .read<GameBloc>()
-                .add(const GameEvent.drag(Direction.bottom));
+            context.read<GameCubit>().drag(Direction.bottom);
           }
         }
       },
@@ -71,9 +69,9 @@ class Game extends StatelessWidget {
         final primaryVelocity = dragEndDetails.primaryVelocity;
         if (primaryVelocity != null) {
           if (primaryVelocity.isNegative) {
-            context.read<GameBloc>().add(const GameEvent.drag(Direction.left));
+            context.read<GameCubit>().drag(Direction.left);
           } else {
-            context.read<GameBloc>().add(const GameEvent.drag(Direction.right));
+            context.read<GameCubit>().drag(Direction.right);
           }
         }
       },
@@ -83,7 +81,7 @@ class Game extends StatelessWidget {
             alignment: Alignment.center,
             width: gameBoardSize,
             height: gameBoardSize,
-            child: BlocBuilder<GameBloc, GameState>(
+            child: BlocBuilder<GameCubit, GameState>(
               builder: (context, state) {
                 return GameBoard(size: size, fieldPadding: fieldPadding);
               },
@@ -125,7 +123,7 @@ class GameBoard extends StatelessWidget {
           color: Color((Random().nextDouble() * 0xFFFFFF).toInt())
               .withOpacity(1.0),
           child: context
-                      .read<GameBloc>()
+                      .read<GameCubit>()
                       .state
                       .gameMatrix
                       .getAtPosition(position: index) ==
@@ -134,7 +132,7 @@ class GameBoard extends StatelessWidget {
               : Center(
                   child: Text(
                     context
-                        .read<GameBloc>()
+                        .read<GameCubit>()
                         .state
                         .gameMatrix
                         .getAtPosition(position: index)
