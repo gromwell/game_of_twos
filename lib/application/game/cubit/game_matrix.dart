@@ -1,6 +1,6 @@
 import 'package:game_of_twos/constants.dart';
 
-//   x→
+//   x(row)→
 // y |0,0|0,1|0,2|
 // ↓ |1,0|1,1|1,2|
 //   |2,0|2,1|2,2|
@@ -21,7 +21,7 @@ class GameMatrix extends Iterable {
           gameMatrix.size,
           (row) => List.generate(
             gameMatrix.size,
-            (column) => gameMatrix.getAt(row: row, column: column),
+            (column) => gameMatrix.getAt(column: column, row: row),
           ),
         );
 
@@ -32,7 +32,7 @@ class GameMatrix extends Iterable {
   @override
   Iterator get iterator => _toSingleList().iterator;
 
-  int getAt({required int row, required int column}) {
+  int getAt({required int column, required int row}) {
     return data[row][column];
   }
 

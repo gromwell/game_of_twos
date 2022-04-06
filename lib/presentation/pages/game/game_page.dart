@@ -59,9 +59,9 @@ class Game extends StatelessWidget {
         final primaryVelocity = dragEndDetails.primaryVelocity;
         if (primaryVelocity != null) {
           if (primaryVelocity.isNegative) {
-            context.read<GameCubit>().drag(Direction.top);
+            context.read<GameCubit>().drag(Direction.up);
           } else {
-            context.read<GameCubit>().drag(Direction.bottom);
+            context.read<GameCubit>().drag(Direction.down);
           }
         }
       },
@@ -120,8 +120,7 @@ class GameBoard extends StatelessWidget {
             fieldPadding,
             Constants.marginsNone,
           ),
-          color: Color((Random().nextDouble() * 0xFFFFFF).toInt())
-              .withOpacity(1.0),
+          color: Colors.blueGrey.withOpacity(1.0),
           child: context
                       .read<GameCubit>()
                       .state
