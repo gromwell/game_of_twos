@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_of_twos/application/game/cubit/game_cubit.dart';
+import 'package:game_of_twos/application/game/cubit/game_matrix.dart';
 import 'package:game_of_twos/constants.dart';
 import 'package:game_of_twos/presentation/my_scaffold.dart';
 import 'package:game_of_twos/presentation/pages/game/scores_display.dart';
@@ -106,6 +107,7 @@ class GameBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GameMatrix gameMatrix = context.read<GameCubit>().state.gameMatrix;
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -113,6 +115,7 @@ class GameBoard extends StatelessWidget {
       ),
       itemCount: size * size,
       itemBuilder: (BuildContext context, int index) {
+        final int gameValue = gameMatrix.getAtPosition(position: index);
         return Container(
           padding: EdgeInsets.fromLTRB(
             fieldPadding,
@@ -120,26 +123,26 @@ class GameBoard extends StatelessWidget {
             fieldPadding,
             Constants.marginsNone,
           ),
-          color: Colors.blueGrey.withOpacity(1.0),
-          child: context
-                      .read<GameCubit>()
-                      .state
-                      .gameMatrix
-                      .getAtPosition(position: index) ==
-                  0
+          color: Theme.of(context).colorScheme.secondary.withOpacity(
+                _calculateOpacity(
+                  value: gameValue,
+                  maxValue: gameMatrix.maxValue,
+                ),
+              ),
+          child: gameValue == 0
               ? null
               : Center(
                   child: Text(
-                    context
-                        .read<GameCubit>()
-                        .state
-                        .gameMatrix
-                        .getAtPosition(position: index)
-                        .toString(),
+                    gameValue.toString(),
+                    style: Theme.of(context).textTheme.headlineLarge,
                   ),
                 ),
         );
       },
     );
+  }
+
+  double _calculateOpacity({required int value, required int maxValue}) {
+    return value / maxValue;
   }
 }

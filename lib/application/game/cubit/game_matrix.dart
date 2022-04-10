@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:game_of_twos/constants.dart';
 
 //   x(row)→
@@ -55,4 +57,8 @@ class GameMatrix extends Iterable {
     }
     return singleList;
   }
+
+  int get maxValue => _toSingleList().reduce(max);
+
+  int get minValue => _toSingleList().reduce(min);
 }
