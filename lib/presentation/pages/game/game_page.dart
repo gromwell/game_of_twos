@@ -38,7 +38,7 @@ class GamePage extends StatelessWidget {
           2 * kToolbarHeight -
           MediaQuery.of(context).viewPadding.top;
     }
-    return shorterEdge;
+    return shorterEdge - Constants.paddingSmall * 2;
   }
 }
 
@@ -112,23 +112,31 @@ class GameBoard extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: size,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
       ),
       itemCount: size * size,
       itemBuilder: (BuildContext context, int index) {
         final int gameValue = gameMatrix.getAtPosition(position: index);
         return Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Theme.of(context).colorScheme.secondary,
+              width: Constants.gameSquareBorderSize,
+            ),
+            color: Theme.of(context).colorScheme.secondary.withOpacity(
+                  _calculateOpacity(
+                    value: gameValue,
+                    maxValue: gameMatrix.maxValue,
+                  ),
+                ),
+          ),
           padding: EdgeInsets.fromLTRB(
             fieldPadding,
             Constants.marginsNone,
             fieldPadding,
             Constants.marginsNone,
           ),
-          color: Theme.of(context).colorScheme.secondary.withOpacity(
-                _calculateOpacity(
-                  value: gameValue,
-                  maxValue: gameMatrix.maxValue,
-                ),
-              ),
           child: gameValue == 0
               ? null
               : Center(
