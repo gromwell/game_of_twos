@@ -6,6 +6,7 @@ import 'package:game_of_twos/application/game/cubit/game_cubit.dart';
 import 'package:game_of_twos/application/game/cubit/game_matrix.dart';
 import 'package:game_of_twos/constants.dart';
 import 'package:game_of_twos/presentation/my_scaffold.dart';
+import 'package:game_of_twos/presentation/pages/game/game_gesture_detector.dart';
 import 'package:game_of_twos/presentation/pages/game/scores_display.dart';
 
 class GamePage extends StatelessWidget {
@@ -55,26 +56,9 @@ class Game extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onVerticalDragEnd: (dragEndDetails) {
-        final primaryVelocity = dragEndDetails.primaryVelocity;
-        if (primaryVelocity != null) {
-          if (primaryVelocity.isNegative) {
-            context.read<GameCubit>().drag(Direction.up);
-          } else {
-            context.read<GameCubit>().drag(Direction.down);
-          }
-        }
-      },
-      onHorizontalDragEnd: (dragEndDetails) {
-        final primaryVelocity = dragEndDetails.primaryVelocity;
-        if (primaryVelocity != null) {
-          if (primaryVelocity.isNegative) {
-            context.read<GameCubit>().drag(Direction.left);
-          } else {
-            context.read<GameCubit>().drag(Direction.right);
-          }
-        }
+    return GameGestureDetector(
+      onDrag: (direction) {
+        context.read<GameCubit>().drag(direction);
       },
       child: MyScaffold(
         body: Center(
