@@ -9,7 +9,7 @@ abstract class Constants {
   static const double marginsLarge = 16.0;
   static const double marginsHuge = 32.0;
 
-  static const double paddingSmall = 4.0;
+  static const double gameSquarePadding = 8.0;
   static const double gameSquareBorderSize = 3.0;
 
   static const int highScoreInitial = 0;

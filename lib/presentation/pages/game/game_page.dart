@@ -37,7 +37,7 @@ class GamePage extends StatelessWidget {
           2 * kToolbarHeight -
           MediaQuery.of(context).viewPadding.top;
     }
-    return shorterEdge - Constants.paddingSmall * 2;
+    return shorterEdge - Constants.gameSquarePadding * 2;
   }
 }
 
@@ -90,8 +90,8 @@ class GameBoard extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: size,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+        crossAxisSpacing: Constants.gameSquarePadding,
+        mainAxisSpacing: Constants.gameSquarePadding,
       ),
       itemCount: size * size,
       itemBuilder: (BuildContext context, int index) {
