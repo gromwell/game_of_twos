@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:game_of_twos/application/game/cubit/game_cubit.dart';
@@ -16,15 +17,12 @@ class GamePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double gameBoardSize = _getGameBoardSize(context);
-    final double fieldSize = gameBoardSize / size;
-    final double fieldPadding = fieldSize / 4;
 
     return BlocProvider(
       create: (context) => GameCubit(size),
       child: Game(
         gameBoardSize: gameBoardSize,
         size: size,
-        fieldPadding: fieldPadding,
       ),
     );
   }
@@ -47,12 +45,10 @@ class Game extends StatelessWidget {
   const Game({
     required this.gameBoardSize,
     required this.size,
-    required this.fieldPadding,
   });
 
   final double gameBoardSize;
   final int size;
-  final double fieldPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +64,7 @@ class Game extends StatelessWidget {
             height: gameBoardSize,
             child: BlocBuilder<GameCubit, GameState>(
               builder: (context, state) {
-                return GameBoard(size: size, fieldPadding: fieldPadding);
+                return GameBoard(size: size);
               },
             ),
           ),
@@ -83,11 +79,9 @@ class GameBoard extends StatelessWidget {
   const GameBoard({
     Key? key,
     required this.size,
-    required this.fieldPadding,
   }) : super(key: key);
 
   final int size;
-  final double fieldPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -115,18 +109,13 @@ class GameBoard extends StatelessWidget {
                   ),
                 ),
           ),
-          padding: EdgeInsets.fromLTRB(
-            fieldPadding,
-            Constants.marginsNone,
-            fieldPadding,
-            Constants.marginsNone,
-          ),
           child: gameValue == 0
               ? null
               : Center(
-                  child: Text(
+                  child: AutoSizeText(
                     gameValue.toString(),
                     style: Theme.of(context).textTheme.headlineLarge,
+                    maxLines: 1,
                   ),
                 ),
         );
