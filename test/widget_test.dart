@@ -7,6 +7,8 @@
 
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:game_of_twos/application/game/cubit/game_cubit.dart';
+import 'package:game_of_twos/application/game/cubit/game_matrix.dart';
 import 'package:game_of_twos/application/highscore/high_score_cubit.dart';
 import 'package:game_of_twos/constants.dart';
 
@@ -16,7 +18,7 @@ import 'package:mocktail/mocktail.dart';
 class MockStorage extends Mock implements Storage {}
 
 Future<void> main() async {
-  group('Highscore bloc', () {
+  group('Highscore cubit', () {
     late Storage hydratedStorage;
 
     setUp(() {
@@ -60,6 +62,140 @@ Future<void> main() async {
       'state is hydrated',
       build: () => build(),
       verify: (bloc) => bloc.state.highScore == 200,
+    );
+  });
+  group('Game cubit', () {
+    blocTest<GameCubit, GameState>(
+      'move',
+      build: () => GameCubit(3, randomize: false),
+      seed: () => GameState(
+        gameMatrix: GameMatrix.fromList([
+          [0, 0, 2],
+          [0, 2, 0],
+          [2, 0, 0]
+        ]),
+        gameStatus: GameStatus.playing,
+        score: 0,
+      ),
+      act: (cubit) => cubit.drag(Direction.down),
+      expect: () => [
+        GameState(
+          gameMatrix: GameMatrix.fromList([
+            [2, 0, 0],
+            [0, 0, 0],
+            [2, 2, 2]
+          ]),
+          gameStatus: GameStatus.playing,
+          score: 0,
+        )
+      ],
+    );
+
+    blocTest<GameCubit, GameState>(
+      'move combine move',
+      build: () => GameCubit(3, randomize: false),
+      seed: () => GameState(
+        gameMatrix: GameMatrix.fromList([
+          [2, 2, 2],
+          [0, 0, 0],
+          [0, 0, 0]
+        ]),
+        gameStatus: GameStatus.playing,
+        score: 0,
+      ),
+      act: (cubit) => cubit.drag(Direction.left),
+      expect: () => [
+        GameState(
+          gameMatrix: GameMatrix.fromList([
+            [4, 2, 2],
+            [0, 0, 0],
+            [0, 0, 0]
+          ]),
+          gameStatus: GameStatus.playing,
+          score: 0,
+        )
+      ],
+    );
+    blocTest<GameCubit, GameState>(
+      'gameover',
+      build: () => GameCubit(3, randomize: false),
+      seed: () => GameState(
+        gameMatrix: GameMatrix.fromList([
+          [2, 4, 8],
+          [8, 16, 32],
+          [16, 32, 64]
+        ]),
+        gameStatus: GameStatus.playing,
+        score: 0,
+      ),
+      act: (cubit) => cubit.drag(Direction.right),
+      expect: () => [
+        GameState(
+          gameMatrix: GameMatrix.fromList([
+            [2, 4, 8],
+            [8, 16, 32],
+            [16, 32, 64]
+          ]),
+          gameStatus: GameStatus.gameOver,
+          score: 0,
+        )
+      ],
+    );
+    blocTest<GameCubit, GameState>(
+      'every direction',
+      build: () => GameCubit(3, randomize: false),
+      seed: () => GameState(
+        gameMatrix: GameMatrix.fromList([
+          [0, 0, 0],
+          [0, 2, 0],
+          [0, 0, 0]
+        ]),
+        gameStatus: GameStatus.playing,
+        score: 0,
+      ),
+      act: (cubit) => cubit
+        ..drag(Direction.up)
+        ..drag(Direction.right)
+        ..drag(Direction.down)
+        ..drag(Direction.left),
+      expect: () => [
+        GameState(
+          gameMatrix: GameMatrix.fromList([
+            [2, 2, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+          ]),
+          gameStatus: GameStatus.playing,
+          score: 0,
+        ),
+        GameState(
+          gameMatrix: GameMatrix.fromList([
+            [2, 0, 4],
+            [0, 0, 0],
+            [0, 0, 0]
+          ]),
+          gameStatus: GameStatus.playing,
+          score: 0,
+        ),
+                GameState(
+          gameMatrix: GameMatrix.fromList([
+            [2, 0, 0],
+            [0, 0, 0],
+            [2, 0, 4]
+          ]),
+          gameStatus: GameStatus.playing,
+          score: 0,
+        ),
+                GameState(
+          gameMatrix: GameMatrix.fromList([
+            [2, 2, 0],
+            [0, 0, 0],
+            [2, 4, 0]
+          ]),
+          gameStatus: GameStatus.playing,
+          score: 0,
+        ),
+      ],
     );
   });
   // testWidgets('Counter increments smoke test', (WidgetTester tester) async {

@@ -12,11 +12,12 @@ enum Direction { up, down, left, right }
 enum GameAction { move, combine }
 
 class GameCubit extends Cubit<GameState> {
-  GameCubit(this.size) : super(GameState.initial(size: size)) {
+  GameCubit(this.size, {this.randomize = true})
+      : super(GameState.initial(size: size)) {
     addNewTwo();
   }
-
-  Random random = Random();
+  bool randomize;
+  final Random _random = Random();
   int size;
   bool get isPlaying => state.gameStatus == GameStatus.playing;
 
@@ -27,16 +28,20 @@ class GameCubit extends Cubit<GameState> {
       _performGameAction(newGameMatrix, direction, GameAction.combine);
       _performGameAction(newGameMatrix, direction, GameAction.move);
       if (state.gameMatrix != newGameMatrix) {
-        emit(state.copyWith(gameMatrix: newGameMatrix));
-        addNewTwo();
+        addNewTwo(gameMatrix: newGameMatrix);
+      } else {
+        if (newGameMatrix.minValue != Constants.gamefieldInitial) {
+          gameOver();
+        }
       }
     }
   }
 
-  void addNewTwo() {
-    final GameMatrix newGameMatrix = GameMatrix.copy(state.gameMatrix);
+  void addNewTwo({GameMatrix? gameMatrix}) {
+    final GameMatrix newGameMatrix =
+        gameMatrix ?? GameMatrix.copy(state.gameMatrix);
     final List<int> fieldsWithInitialValue = [];
-    state.gameMatrix.forEachIndexed((index, element) {
+    newGameMatrix.forEachIndexed((index, element) {
       if (element == Constants.gamefieldInitial) {
         fieldsWithInitialValue.add(index);
       }
@@ -44,13 +49,21 @@ class GameCubit extends Cubit<GameState> {
     if (fieldsWithInitialValue.isEmpty) {
       gameOver();
     } else {
-      final int newTwoIndex =
-          fieldsWithInitialValue[random.nextInt(fieldsWithInitialValue.length)];
+      final int newTwoIndex = fieldsWithInitialValue[
+          _getRandomInt(maxValue: fieldsWithInitialValue.length)];
       newGameMatrix.setAtPosition(
         Constants.gamefieldTwo,
         position: newTwoIndex,
       );
       emit(state.copyWith(gameMatrix: newGameMatrix));
+    }
+  }
+
+  int _getRandomInt({required int maxValue}) {
+    if (randomize) {
+      return _random.nextInt(maxValue);
+    } else {
+      return 0;
     }
   }
 

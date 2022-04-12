@@ -19,6 +19,8 @@ class GameMatrix extends Iterable {
           (index) => List.generate(size, (index) => Constants.gamefieldInitial),
         );
 
+  GameMatrix.fromList(this.data);
+
   GameMatrix.copy(GameMatrix gameMatrix)
       : data = List.generate(
           gameMatrix.size,
@@ -40,7 +42,6 @@ class GameMatrix extends Iterable {
     if (other is GameMatrix) {
       return listEquals(toSingleList(), other.toSingleList());
     } else {
-      // assert(false);
       return false;
     }
   }
@@ -75,4 +76,5 @@ class GameMatrix extends Iterable {
   int get maxValue => toSingleList().reduce(max);
 
   int get minValue => toSingleList().reduce(min);
+
 }
