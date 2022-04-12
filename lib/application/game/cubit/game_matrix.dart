@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:game_of_twos/constants.dart';
+import 'package:game_of_twos/presentation/pages/game/game_page.dart';
 
 //   x(row)→
 // y |0,0|0,1|0,2|
@@ -32,7 +34,20 @@ class GameMatrix extends Iterable {
   int get size => data.length;
 
   @override
-  Iterator get iterator => _toSingleList().iterator;
+  Iterator get iterator => toSingleList().iterator;
+
+  @override
+  bool operator ==(Object other) {
+    if (other is GameMatrix) {
+      return listEquals(toSingleList(), other.toSingleList());
+    } else {
+      // assert(false);
+      return false;
+    }
+  }
+
+  @override
+  int get hashCode => data.hashCode;
 
   int getAt({required int column, required int row}) {
     return data[row][column];
@@ -50,7 +65,7 @@ class GameMatrix extends Iterable {
     data[(position / size).floor()][position % size] = value;
   }
 
-  List<int> _toSingleList() {
+  List<int> toSingleList() {
     final List<int> singleList = [];
     for (final row in data) {
       singleList.addAll(row);
@@ -58,7 +73,7 @@ class GameMatrix extends Iterable {
     return singleList;
   }
 
-  int get maxValue => _toSingleList().reduce(max);
+  int get maxValue => toSingleList().reduce(max);
 
-  int get minValue => _toSingleList().reduce(min);
+  int get minValue => toSingleList().reduce(min);
 }

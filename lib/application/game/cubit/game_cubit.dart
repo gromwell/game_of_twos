@@ -26,8 +26,10 @@ class GameCubit extends Cubit<GameState> {
       _performGameAction(newGameMatrix, direction, GameAction.move);
       _performGameAction(newGameMatrix, direction, GameAction.combine);
       _performGameAction(newGameMatrix, direction, GameAction.move);
-      emit(state.copyWith(gameMatrix: newGameMatrix));
-      addNewTwo();
+      if (state.gameMatrix != newGameMatrix) {
+        emit(state.copyWith(gameMatrix: newGameMatrix));
+        addNewTwo();
+      }
     }
   }
 
