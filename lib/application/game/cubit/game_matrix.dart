@@ -40,6 +40,7 @@ class GameMatrix extends Iterable {
     if (other is GameMatrix) {
       return listEquals(toSingleList(), other.toSingleList());
     } else {
+      // assert(false);
       return false;
     }
   }

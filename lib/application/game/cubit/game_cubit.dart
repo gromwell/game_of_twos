@@ -13,7 +13,7 @@ enum GameAction { move, combine }
 
 class GameCubit extends Cubit<GameState> {
   GameCubit(this.size) : super(GameState.initial(size: size)) {
-    gameTurn();
+    addNewTwo();
   }
 
   Random random = Random();
@@ -27,14 +27,14 @@ class GameCubit extends Cubit<GameState> {
       _performGameAction(newGameMatrix, direction, GameAction.combine);
       _performGameAction(newGameMatrix, direction, GameAction.move);
       if (state.gameMatrix != newGameMatrix) {
-        gameTurn(gameMatrix: newGameMatrix);
+        emit(state.copyWith(gameMatrix: newGameMatrix));
+        addNewTwo();
       }
     }
   }
 
-  void gameTurn({GameMatrix? gameMatrix}) {
-    final GameMatrix newGameMatrix =
-        gameMatrix ?? GameMatrix.copy(state.gameMatrix);
+  void addNewTwo() {
+    final GameMatrix newGameMatrix = GameMatrix.copy(state.gameMatrix);
     final List<int> fieldsWithInitialValue = [];
     state.gameMatrix.forEachIndexed((index, element) {
       if (element == Constants.gamefieldInitial) {
@@ -60,7 +60,7 @@ class GameCubit extends Cubit<GameState> {
 
   void reset() {
     emit(GameState.initial(size: size));
-    gameTurn();
+    addNewTwo();
   }
 
   void _performGameAction(
@@ -68,167 +68,153 @@ class GameCubit extends Cubit<GameState> {
     Direction direction,
     GameAction gameAction,
   ) {
-    bool redoAction = false;
+    bool actionPerformed;
     do {
+      actionPerformed = false;
       switch (direction) {
         case Direction.up:
           for (var column = 0; column < gameMatrix.size; column++) {
             for (var row = 0; row < gameMatrix.size - 1; row++) {
-              redoAction = _handleGameAction(
-                gameAction,
-                gameMatrix,
-                column,
-                row,
-                direction,
-              );
+              final int current = gameMatrix.getAt(column: column, row: row);
+              final int next = gameMatrix.getAt(column: column, row: row + 1);
+              switch (gameAction) {
+                case GameAction.move:
+                  if (current == Constants.gamefieldInitial &&
+                      next != Constants.gamefieldInitial) {
+                    gameMatrix.setAt(next, column: column, row: row);
+                    gameMatrix.setAt(
+                      Constants.gamefieldInitial,
+                      column: column,
+                      row: row + 1,
+                    );
+                    actionPerformed = true;
+                  }
+                  break;
+                case GameAction.combine:
+                  if (current != Constants.gamefieldInitial &&
+                      current == next) {
+                    gameMatrix.setAt(next + current, column: column, row: row);
+                    gameMatrix.setAt(
+                      Constants.gamefieldInitial,
+                      column: column,
+                      row: row + 1,
+                    );
+                  }
+                  break;
+                default:
+                  assert(false);
+              }
             }
           }
           break;
         case Direction.down:
           for (var column = 0; column < gameMatrix.size; column++) {
             for (var row = gameMatrix.size - 1; row >= 1; row--) {
-              redoAction = _handleGameAction(
-                gameAction,
-                gameMatrix,
-                column,
-                row,
-                direction,
-              );
+              final int current = gameMatrix.getAt(column: column, row: row);
+              final int next = gameMatrix.getAt(column: column, row: row - 1);
+              switch (gameAction) {
+                case GameAction.move:
+                  if (current == Constants.gamefieldInitial &&
+                      next != Constants.gamefieldInitial) {
+                    gameMatrix.setAt(next, column: column, row: row);
+                    gameMatrix.setAt(
+                      Constants.gamefieldInitial,
+                      column: column,
+                      row: row - 1,
+                    );
+                    actionPerformed = true;
+                  }
+                  break;
+                case GameAction.combine:
+                  if (current != Constants.gamefieldInitial &&
+                      current == next) {
+                    gameMatrix.setAt(next + current, column: column, row: row);
+                    gameMatrix.setAt(
+                      Constants.gamefieldInitial,
+                      column: column,
+                      row: row - 1,
+                    );
+                  }
+                  break;
+                default:
+                  assert(false);
+              }
             }
           }
           break;
         case Direction.left:
           for (var row = 0; row < gameMatrix.size; row++) {
             for (var column = 0; column < gameMatrix.size - 1; column++) {
-              redoAction = _handleGameAction(
-                gameAction,
-                gameMatrix,
-                column,
-                row,
-                direction,
-              );
+              final int current = gameMatrix.getAt(column: column, row: row);
+              final int next = gameMatrix.getAt(column: column + 1, row: row);
+              switch (gameAction) {
+                case GameAction.move:
+                  if (current == Constants.gamefieldInitial &&
+                      next != Constants.gamefieldInitial) {
+                    gameMatrix.setAt(next, column: column, row: row);
+                    gameMatrix.setAt(
+                      Constants.gamefieldInitial,
+                      column: column + 1,
+                      row: row,
+                    );
+                    actionPerformed = true;
+                  }
+                  break;
+                case GameAction.combine:
+                  if (current != Constants.gamefieldInitial &&
+                      current == next) {
+                    gameMatrix.setAt(next + current, column: column, row: row);
+                    gameMatrix.setAt(
+                      Constants.gamefieldInitial,
+                      column: column + 1,
+                      row: row,
+                    );
+                  }
+                  break;
+                default:
+                  assert(false);
+              }
             }
           }
           break;
         case Direction.right:
           for (var row = 0; row < gameMatrix.size; row++) {
             for (var column = gameMatrix.size - 1; column >= 1; column--) {
-              redoAction = _handleGameAction(
-                gameAction,
-                gameMatrix,
-                column,
-                row,
-                direction,
-              );
+              final int current = gameMatrix.getAt(column: column, row: row);
+              final int next = gameMatrix.getAt(column: column - 1, row: row);
+              switch (gameAction) {
+                case GameAction.move:
+                  if (current == Constants.gamefieldInitial &&
+                      next != Constants.gamefieldInitial) {
+                    gameMatrix.setAt(next, column: column, row: row);
+                    gameMatrix.setAt(
+                      Constants.gamefieldInitial,
+                      column: column - 1,
+                      row: row,
+                    );
+                    actionPerformed = true;
+                  }
+                  break;
+                case GameAction.combine:
+                  if (current != Constants.gamefieldInitial &&
+                      current == next) {
+                    gameMatrix.setAt(next + current, column: column, row: row);
+                    gameMatrix.setAt(
+                      Constants.gamefieldInitial,
+                      column: column - 1,
+                      row: row,
+                    );
+                  }
+                  break;
+                default:
+                  assert(false);
+              }
             }
           }
           break;
         default:
           assert(false);
       }
-    } while (redoAction);
-  }
-
-  bool _handleGameAction(
-    GameAction gameAction,
-    GameMatrix gameMatrix,
-    int column,
-    int row,
-    Direction direction,
-  ) {
-    bool shouldRedoAction = false;
-    switch (gameAction) {
-      case GameAction.move:
-        shouldRedoAction = _onMove(gameMatrix, column, row, direction);
-        break;
-      case GameAction.combine:
-        _onCombine(gameMatrix, column, row, direction);
-        break;
-      default:
-        assert(false);
-    }
-    return shouldRedoAction;
-  }
-
-  bool _onMove(
-    GameMatrix gameMatrix,
-    int column,
-    int row,
-    Direction direction,
-  ) {
-    final int current = gameMatrix.getAt(column: column, row: row);
-    final int next = gameMatrix.getAt(
-      column: _getNextColumn(column, direction),
-      row: _getNextRow(row, direction),
-    );
-    if (_canMove(current, next)) {
-      gameMatrix.setAt(next, column: column, row: row);
-      gameMatrix.setAt(
-        Constants.gamefieldInitial,
-        column: _getNextColumn(column, direction),
-        row: _getNextRow(row, direction),
-      );
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  bool _canCombine(int current, int next) {
-    return current != Constants.gamefieldInitial && current == next;
-  }
-
-  bool _canMove(int current, int next) {
-    return current == Constants.gamefieldInitial &&
-        next != Constants.gamefieldInitial;
-  }
-
-  int _getNextRow(int row, Direction direction) {
-    int nextRow = row;
-    switch (direction) {
-      case Direction.up:
-        nextRow++;
-        break;
-      case Direction.down:
-        nextRow--;
-        break;
-      default:
-    }
-    return nextRow;
-  }
-
-  int _getNextColumn(int column, Direction direction) {
-    int nextColumn = column;
-    switch (direction) {
-      case Direction.left:
-        nextColumn++;
-        break;
-      case Direction.right:
-        nextColumn--;
-        break;
-      default:
-    }
-    return nextColumn;
-  }
-
-  void _onCombine(
-    GameMatrix gameMatrix,
-    int column,
-    int row,
-    Direction direction,
-  ) {
-    final int current = gameMatrix.getAt(column: column, row: row);
-    final int next = gameMatrix.getAt(
-      column: _getNextColumn(column, direction),
-      row: _getNextRow(row, direction),
-    );
-    if (_canCombine(current, next)) {
-      gameMatrix.setAt(next + current, column: column, row: row);
-      gameMatrix.setAt(
-        Constants.gamefieldInitial,
-        column: _getNextColumn(column, direction),
-        row: _getNextRow(row, direction),
-      );
-    }
+    } while (actionPerformed && gameAction == GameAction.move);
   }
 }
