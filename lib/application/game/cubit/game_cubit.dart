@@ -14,21 +14,21 @@ enum GameAction { move, combine }
 class GameCubit extends Cubit<GameState> {
   GameCubit(this.size, {this.randomize = true})
       : super(GameState.initial(size: size)) {
-    gameTurn();
+    _gameTurn();
   }
   bool randomize;
-  final Random _random = Random();
   int size;
-  bool get isPlaying => state.gameStatus == GameStatus.playing;
+  final Random _random = Random();
+  bool get _isPlaying => state.gameStatus == GameStatus.playing;
 
   void drag(Direction direction) {
-    if (isPlaying) {
+    if (_isPlaying) {
       final GameMatrix newGameMatrix = GameMatrix.copy(state.gameMatrix);
       do {} while (_moveSquaresByOnePos(newGameMatrix, direction));
       final int addedScore = _combineSquares(newGameMatrix, direction);
       do {} while (_moveSquaresByOnePos(newGameMatrix, direction));
       if (state.gameMatrix != newGameMatrix) {
-        gameTurn(gameMatrix: newGameMatrix, addedScore: addedScore);
+        _gameTurn(gameMatrix: newGameMatrix, addedScore: addedScore);
       } else {
         if (newGameMatrix.minValue != Constants.gamefieldInitial) {
           gameOver();
@@ -37,7 +37,16 @@ class GameCubit extends Cubit<GameState> {
     }
   }
 
-  void gameTurn({GameMatrix? gameMatrix, int addedScore = 0}) {
+  void gameOver() {
+    emit(state.copyWith(gameStatus: GameStatus.gameOver));
+  }
+
+  void reset() {
+    emit(GameState.initial(size: size));
+    _gameTurn();
+  }
+
+  void _gameTurn({GameMatrix? gameMatrix, int addedScore = 0}) {
     final GameMatrix newGameMatrix =
         gameMatrix ?? GameMatrix.copy(state.gameMatrix);
     final List<int> fieldsWithInitialValue = [];
@@ -66,15 +75,6 @@ class GameCubit extends Cubit<GameState> {
     } else {
       return 0;
     }
-  }
-
-  void gameOver() {
-    emit(state.copyWith(gameStatus: GameStatus.gameOver));
-  }
-
-  void reset() {
-    emit(GameState.initial(size: size));
-    gameTurn();
   }
 
   bool _moveSquaresByOnePos(GameMatrix gameMatrix, Direction direction) {
