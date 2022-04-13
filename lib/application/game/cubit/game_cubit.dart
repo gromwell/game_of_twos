@@ -9,7 +9,6 @@ part 'game_state.dart';
 part 'game_cubit.freezed.dart';
 
 enum Direction { up, down, left, right }
-enum GameAction { move, combine }
 
 class GameCubit extends Cubit<GameState> {
   GameCubit(this.size, {this.randomize = true})
@@ -31,19 +30,19 @@ class GameCubit extends Cubit<GameState> {
         _gameTurn(gameMatrix: newGameMatrix, addedScore: addedScore);
       } else {
         if (newGameMatrix.minValue != Constants.gamefieldInitial) {
-          gameOver();
+          _gameOver();
         }
       }
     }
   }
 
-  void gameOver() {
-    emit(state.copyWith(gameStatus: GameStatus.gameOver));
-  }
-
   void reset() {
     emit(GameState.initial(size: size));
     _gameTurn();
+  }
+
+  void _gameOver() {
+    emit(state.copyWith(gameStatus: GameStatus.gameOver));
   }
 
   void _gameTurn({GameMatrix? gameMatrix, int addedScore = 0}) {
