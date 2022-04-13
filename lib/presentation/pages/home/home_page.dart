@@ -21,6 +21,9 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            const Text(
+              'Created by Michał Nawrot. Press the play button to start. Use drag moves to play.',
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
