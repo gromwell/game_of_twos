@@ -112,7 +112,7 @@ Future<void> main() async {
             [0, 0, 0]
           ]),
           gameStatus: GameStatus.playing,
-          score: 0,
+          score: 4,
         )
       ],
     );
@@ -175,7 +175,7 @@ Future<void> main() async {
             [0, 0, 0]
           ]),
           gameStatus: GameStatus.playing,
-          score: 0,
+          score: 4,
         ),
                 GameState(
           gameMatrix: GameMatrix.fromList([
@@ -184,7 +184,7 @@ Future<void> main() async {
             [2, 0, 4]
           ]),
           gameStatus: GameStatus.playing,
-          score: 0,
+          score: 4,
         ),
                 GameState(
           gameMatrix: GameMatrix.fromList([
@@ -193,7 +193,7 @@ Future<void> main() async {
             [2, 4, 0]
           ]),
           gameStatus: GameStatus.playing,
-          score: 0,
+          score: 4,
         ),
       ],
     );
