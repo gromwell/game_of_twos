@@ -41,10 +41,18 @@ class HighscoreDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => HighScoreCubit(),
-      child: BlocBuilder<HighScoreCubit, HighScoreState>(
-        builder: (context, state) {
-          return Text('Highscore: ${state.highScore}');
+      child: BlocListener<GameCubit, GameState>(
+        listenWhen: (previous, current) {
+          return previous.score != current.score;
         },
+        listener: (context, state) {
+          context.read<HighScoreCubit>().update(highScore: state.score);
+        },
+        child: BlocBuilder<HighScoreCubit, HighScoreState>(
+          builder: (context, state) {
+            return Text('Highscore: ${state.highScore}');
+          },
+        ),
       ),
     );
   }
