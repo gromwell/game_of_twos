@@ -9,6 +9,7 @@ import 'package:game_of_twos/application/game/cubit/game_matrix.dart';
 import 'package:game_of_twos/constants.dart';
 import 'package:game_of_twos/presentation/my_scaffold.dart';
 import 'package:game_of_twos/presentation/pages/game/game_gesture_detector.dart';
+import 'package:game_of_twos/presentation/pages/game/game_over_alert_dialog.dart';
 import 'package:game_of_twos/presentation/pages/game/scores_display.dart';
 
 class GamePage extends StatelessWidget {
@@ -63,28 +64,6 @@ class GamePage extends StatelessWidget {
           MediaQuery.of(context).viewPadding.top;
     }
     return shorterEdge - Constants.gameSquarePadding * 2;
-  }
-}
-
-class GameOverAlertDialog extends StatelessWidget {
-  const GameOverAlertDialog({
-    required this.onPressed,
-    required this.score,
-    Key? key,
-  }) : super(key: key);
-
-  final int score;
-  final Function() onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Game over'),
-      content: Text('Your score: $score'),
-      actions: [
-        TextButton(onPressed: onPressed, child: const Text('Try again'))
-      ],
-    );
   }
 }
 

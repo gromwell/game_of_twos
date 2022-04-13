@@ -11,7 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController gameSizeController = TextEditingController();
+  TextEditingController gameSizeController = TextEditingController(text: '3');
 
   @override
   Widget build(BuildContext context) {
