@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,12 +19,36 @@ class GamePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final double gameBoardSize = _getGameBoardSize(context);
 
-    return BlocProvider(
-      create: (context) => GameCubit(size),
+    final blocListener = BlocListener<GameCubit, GameState>(
+      listenWhen: (previous, current) =>
+          previous.gameStatus == GameStatus.playing &&
+          current.gameStatus == GameStatus.gameOver,
+      listener: onGameOver,
       child: Game(
         gameBoardSize: gameBoardSize,
         size: size,
       ),
+    );
+    return BlocProvider(
+      create: (context) => GameCubit(size),
+      child: blocListener,
+    );
+  }
+
+  void onGameOver(BuildContext context, GameState state) {
+    void onPressed() {
+      context.read<GameCubit>().reset();
+      context.router.pop();
+    }
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return GameOverAlertDialog(
+          onPressed: onPressed,
+          score: state.score,
+        );
+      },
     );
   }
 
@@ -38,6 +63,28 @@ class GamePage extends StatelessWidget {
           MediaQuery.of(context).viewPadding.top;
     }
     return shorterEdge - Constants.gameSquarePadding * 2;
+  }
+}
+
+class GameOverAlertDialog extends StatelessWidget {
+  const GameOverAlertDialog({
+    required this.onPressed,
+    required this.score,
+    Key? key,
+  }) : super(key: key);
+
+  final int score;
+  final Function() onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text('Game over'),
+      content: Text('Your score: $score'),
+      actions: [
+        TextButton(onPressed: onPressed, child: const Text('Try again'))
+      ],
+    );
   }
 }
 
