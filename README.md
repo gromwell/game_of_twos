@@ -1,5 +1,5 @@
 # game_of_twos
 
-Created by Michał Nawrot. Press the play button to start. Use drag moves to play.
+Developed by Michał Nawrot. Click the 'Play' button to begin. Use dragging motions to interact with the game.
 
 https://game-of-twos.web.app

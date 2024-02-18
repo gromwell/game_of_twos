@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const Text(
-              'Created by Michał Nawrot. Press the play button to start. Use drag moves to play.',
+              "Developed by Michał Nawrot. Click the 'Play' button to begin. Use dragging motions to interact with the game.",
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
